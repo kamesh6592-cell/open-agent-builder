@@ -74,8 +74,8 @@ export default function NodePanel({
         models.push({
           provider: 'OpenAI',
           models: [
-            { id: 'openai/gpt-4o', name: 'GPT-5' },
-            { id: 'openai/gpt-4o-mini', name: 'GPT-5 Mini' },
+            { id: 'openai/gpt-4o-mini', name: 'GPT-4o Mini (Recommended)' },
+            { id: 'openai/gpt-4o', name: 'GPT-4o' },
           ]
         });
       } else if (key.provider === 'groq') {

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       checks = {},
       piiEntities = [],
       customRules = [],
-      model = 'openai/gpt-5-mini',
+      model = 'openai/gpt-4o-mini',
       actionOnViolation = 'block',
     } = body;
 

@@ -82,7 +82,7 @@ export async function executeExtractNode(
 
     // No MCP - use regular Chat Completions with JSON mode
     const completion = await client.chat.completions.create({
-      model: data.model || 'gpt-5-mini',
+      model: data.model || 'gpt-4o-mini',
       messages: [
         { role: 'user', content: fullPrompt },
       ],
