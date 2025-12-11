@@ -9,12 +9,14 @@ import { simpleAgent } from './01-simple-agent';
 import { agentWithFirecrawl } from './02-agent-with-firecrawl';
 import { scrapeSummarizeDocs } from './03-scrape-summarize-docs';
 import { advancedWorkflow } from './04-advanced-workflow';
+import { simpleWebScraperOpenAI } from './05-simple-web-scraper-openai';
 
 export const exampleTemplates = {
   'example-01-simple-agent': simpleAgent,
   'example-02-agent-with-firecrawl': agentWithFirecrawl,
   'example-03-scrape-summarize-docs': scrapeSummarizeDocs,
   'example-04-advanced-workflow': advancedWorkflow,
+  'simple-web-scraper-openai': simpleWebScraperOpenAI,
 };
 
 export const exampleTemplatesList = [
@@ -45,5 +47,12 @@ export const exampleTemplatesList = [
     description: 'Complete workflow using all node types: loops, conditions, approvals, and tools',
     difficulty: 'advanced',
     estimatedTime: '10-15 minutes',
+  },
+  {
+    id: 'simple-web-scraper-openai',
+    name: 'Simple Web Scraper (OpenAI)',
+    description: 'Basic web scraping with HTTP + OpenAI analysis (no MCP required)',
+    difficulty: 'beginner',
+    estimatedTime: '1-2 minutes',
   },
 ];
