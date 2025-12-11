@@ -55,7 +55,7 @@ export const gmailAgentBuilderTemplate: Workflow = {
         label: 'Authenticate Gmail',
         nodeType: 'arcade',
         arcadeTool: 'Google.Gmail.Authorize',
-        arcadeParams: {
+        arcadeInput: {
           scopes: 'gmail.readonly gmail.send gmail.compose gmail.modify',
         },
         arcadeUserId: 'workflow-user',
