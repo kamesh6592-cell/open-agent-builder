@@ -51,7 +51,7 @@ export const simpleWebScraperOpenAI: Workflow = {
 Question: {{input.question}}
 
 Provide a well-structured answer with relevant details.`,
-        model: 'openai/gpt-4',
+        model: 'openai/gpt-4o-mini',
         outputFormat: 'Text',
       },
     },
