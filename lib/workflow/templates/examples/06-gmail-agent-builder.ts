@@ -32,7 +32,17 @@ export const gmailAgentBuilderTemplate: Workflow = {
       position: { x: 100, y: 100 },
       data: {
         label: 'Start',
-        description: 'Gmail Agent workflow starts here',
+        nodeType: 'start',
+        nodeName: 'Start',
+        inputVariables: [
+          {
+            name: 'task',
+            type: 'string',
+            required: true,
+            description: 'What would you like to do with your Gmail?',
+            defaultValue: 'Show me my 5 most recent unread emails',
+          },
+        ],
       },
     },
 
@@ -43,17 +53,12 @@ export const gmailAgentBuilderTemplate: Workflow = {
       position: { x: 100, y: 220 },
       data: {
         label: 'Authenticate Gmail',
-        description: 'OAuth authentication with Gmail via Arcade',
-        toolId: 'Google.Gmail.Authorize',
-        inputs: {
-          scopes: [
-            'gmail.readonly',
-            'gmail.send',
-            'gmail.compose',
-            'gmail.modify'
-          ].join(' '),
+        nodeType: 'arcade',
+        arcadeTool: 'Google.Gmail.Authorize',
+        arcadeParams: {
+          scopes: 'gmail.readonly gmail.send gmail.compose gmail.modify',
         },
-        outputKey: 'gmailAuth',
+        arcadeUserId: 'workflow-user',
       },
     },
 
@@ -64,9 +69,8 @@ export const gmailAgentBuilderTemplate: Workflow = {
       position: { x: 100, y: 380 },
       data: {
         label: 'Gmail AI Agent',
-        description: 'AI agent with Gmail tools for email management',
+        nodeType: 'agent',
         model: 'gpt-4o-mini',
-        provider: 'openai',
         systemPrompt: `You are a helpful Gmail assistant with access to email management tools.
 
 Your capabilities include:
@@ -151,7 +155,7 @@ When drafting emails:
       position: { x: 100, y: 560 },
       data: {
         label: 'Complete',
-        description: 'Gmail agent workflow complete',
+        nodeType: 'end',
       },
     },
   ],
@@ -174,44 +178,6 @@ When drafting emails:
       source: 'agent-1',
       target: 'end-1',
       type: 'default',
-    },
-  ],
-
-  examples: [
-    {
-      title: 'Read Recent Emails',
-      prompt: 'Show me my 5 most recent unread emails',
-      description: 'Lists recent unread messages from inbox',
-    },
-    {
-      title: 'Search Emails',
-      prompt: 'Find all emails from john@example.com about the project proposal',
-      description: 'Searches emails by sender and keywords',
-    },
-    {
-      title: 'Draft Professional Email',
-      prompt: 'Draft an email to sarah@company.com thanking her for the meeting and proposing a follow-up next week',
-      description: 'Creates a professional draft email',
-    },
-    {
-      title: 'Send Email',
-      prompt: 'Send an email to team@company.com with subject "Weekly Update" and body "Here is our progress this week..."',
-      description: 'Composes and sends an email',
-    },
-    {
-      title: 'Summarize Thread',
-      prompt: 'Read the email thread with ID abc123 and give me a brief summary',
-      description: 'Reads and summarizes an email conversation',
-    },
-    {
-      title: 'Organize Inbox',
-      prompt: 'Find all emails with receipts and add the "Receipts" label to them',
-      description: 'Searches and labels emails for organization',
-    },
-    {
-      title: 'Archive Old Emails',
-      prompt: 'Archive all emails older than 30 days from newsletters@site.com',
-      description: 'Cleans up inbox by archiving old messages',
     },
   ],
 };
