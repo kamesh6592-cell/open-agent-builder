@@ -1350,3 +1350,17 @@ export function listTemplates(): Array<{
     estimatedTime: t.estimatedTime,
   }));
 }
+
+// Import and add Gmail Agent Builder template
+import { gmailAgentBuilderTemplate } from './templates/examples/06-gmail-agent-builder';
+templates[gmailAgentBuilderTemplate.id] = {
+  id: gmailAgentBuilderTemplate.id,
+  name: gmailAgentBuilderTemplate.name,
+  description: gmailAgentBuilderTemplate.description,
+  category: gmailAgentBuilderTemplate.category || 'Productivity',
+  tags: gmailAgentBuilderTemplate.tags || [],
+  difficulty: gmailAgentBuilderTemplate.difficulty,
+  estimatedTime: gmailAgentBuilderTemplate.estimatedTime,
+  nodes: gmailAgentBuilderTemplate.nodes,
+  edges: gmailAgentBuilderTemplate.edges,
+};

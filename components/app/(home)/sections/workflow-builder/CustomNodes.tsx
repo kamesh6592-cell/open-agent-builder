@@ -391,6 +391,7 @@ export const nodeTypes = {
   start: CustomNode,
   agent: CustomNode,
   mcp: CustomNode,
+  arcade: CustomNode,
   extract: CustomNode,
   end: CustomNode,
   note: CustomNode,
