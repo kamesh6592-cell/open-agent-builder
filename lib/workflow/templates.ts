@@ -1363,4 +1363,6 @@ templates[gmailAgentBuilderTemplate.id] = {
   estimatedTime: gmailAgentBuilderTemplate.estimatedTime,
   nodes: gmailAgentBuilderTemplate.nodes,
   edges: gmailAgentBuilderTemplate.edges,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
 };
