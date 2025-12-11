@@ -11,9 +11,10 @@ export const list = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
 
-    // If authenticated, only show user's workflows (exclude templates and undefined userId)
+    // If authenticated, show user's workflows
     if (identity) {
-      const workflows = await ctx.db
+      // Try exact match first
+      let workflows = await ctx.db
         .query("workflows")
         .filter((q) =>
           q.and(
@@ -24,7 +25,25 @@ export const list = query({
         .order("desc")
         .collect();
       
-      console.log(`📋 Found ${workflows.length} workflows for user ${identity.subject}`);
+      console.log(`📋 Exact match: Found ${workflows.length} workflows for user ${identity.subject}`);
+      
+      // If no workflows found, also check for workflows without userId (fallback)
+      if (workflows.length === 0) {
+        const fallbackWorkflows = await ctx.db
+          .query("workflows")
+          .filter((q) =>
+            q.and(
+              q.eq(q.field("userId"), undefined),
+              q.neq(q.field("isTemplate"), true)
+            )
+          )
+          .order("desc")
+          .collect();
+        
+        console.log(`📋 Fallback: Found ${fallbackWorkflows.length} workflows without userId`);
+        workflows = fallbackWorkflows;
+      }
+      
       return workflows;
     }
 
