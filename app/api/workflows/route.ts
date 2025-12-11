@@ -20,6 +20,8 @@ export async function GET(request: NextRequest) {
 
     const convex = await getAuthenticatedConvexClient();
     const workflows = await convex.query(api.workflows.listWorkflows, {});
+    
+    console.log(`✅ API /api/workflows fetched ${workflows?.length || 0} workflows from Convex`);
 
     return NextResponse.json({
       workflows: workflows.map((w: any) => ({

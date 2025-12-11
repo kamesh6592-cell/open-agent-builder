@@ -19,12 +19,10 @@ export const list = query({
         .order("desc")
         .collect();
       
-      console.log(`📋 Found ${workflows.length} total workflows (showing all for authenticated user)`);
       return workflows;
     }
 
     // If not authenticated, return empty array
-    console.log('⚠️ No authentication - returning empty array');
     return [];
   },
 });
