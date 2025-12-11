@@ -103,6 +103,7 @@ export function useWorkflowExecution() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(parsedInput),
+        credentials: 'include', // Include cookies for Clerk authentication
         signal: abortControllerRef.current.signal,
       });
 
