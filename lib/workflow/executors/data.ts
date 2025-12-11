@@ -1,5 +1,4 @@
 import { WorkflowNode, WorkflowState } from '../types';
-import CodeInterpreter from '@e2b/code-interpreter';
 
 /**
  * Execute Data Nodes - Transform, Set State
@@ -99,6 +98,9 @@ async function executeTransformE2B(transformScript: string, state: WorkflowState
   const sandboxedState = {
     variables: JSON.parse(JSON.stringify(state.variables))
   };
+
+  // Dynamic import to avoid ESM issues on Vercel
+  const { default: CodeInterpreter } = await import('@e2b/code-interpreter');
 
   // Create E2B sandbox
   const sandbox = await CodeInterpreter.create({

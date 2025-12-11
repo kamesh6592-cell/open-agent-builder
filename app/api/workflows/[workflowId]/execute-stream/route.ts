@@ -4,6 +4,7 @@ import { LangGraphExecutor } from '@/lib/workflow/langgraph';
 import { validateApiKey, createUnauthorizedResponse } from '@/lib/api/auth';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * Handle CORS preflight requests
