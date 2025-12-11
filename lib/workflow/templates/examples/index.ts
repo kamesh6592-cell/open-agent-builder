@@ -50,9 +50,9 @@ export const exampleTemplatesList = [
   },
   {
     id: 'simple-web-scraper-openai',
-    name: 'Simple Web Scraper (OpenAI)',
-    description: 'Basic web scraping with HTTP + OpenAI analysis (no MCP required)',
+    name: 'Simple Q&A (OpenAI/Groq)',
+    description: 'Ask any question and get an AI answer (uses OpenAI or Groq, no Anthropic)',
     difficulty: 'beginner',
-    estimatedTime: '1-2 minutes',
+    estimatedTime: '30 seconds',
   },
 ];

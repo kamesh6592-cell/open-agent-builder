@@ -1,20 +1,20 @@
 import { Workflow } from '../../types';
 
 /**
- * Simple Web Scraper with OpenAI
+ * Simple Question Answering with OpenAI
  * 
- * A basic web scraping workflow that uses HTTP nodes and OpenAI for analysis.
- * No MCP required - works with any AI provider!
+ * A basic workflow that uses OpenAI to answer questions.
+ * Perfect for testing OpenAI/Groq API keys!
  * 
- * Flow: Start -> HTTP (Fetch) -> Agent (Analyze) -> End
+ * Flow: Start -> Agent (OpenAI) -> End
  */
 export const simpleWebScraperOpenAI: Workflow = {
   id: 'simple-web-scraper-openai',
-  name: 'Simple Web Scraper (OpenAI)',
-  description: 'Scrape and analyze web content using HTTP + OpenAI',
+  name: 'Simple Q&A (OpenAI/Groq)',
+  description: 'Ask any question and get an answer from OpenAI or Groq',
   category: 'templates',
-  tags: ['scraping', 'openai', 'http', 'beginner'],
-  estimatedTime: '1-2 minutes',
+  tags: ['openai', 'groq', 'beginner', 'question-answering'],
+  estimatedTime: '30 seconds',
   difficulty: 'beginner',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
@@ -29,47 +29,28 @@ export const simpleWebScraperOpenAI: Workflow = {
         nodeName: 'Start',
         inputVariables: [
           {
-            name: 'url',
+            name: 'question',
             type: 'string',
             required: true,
-            description: 'Enter the URL to scrape',
-            defaultValue: 'https://example.com',
+            description: 'Ask any question',
+            defaultValue: 'What are the benefits of using AI agents?',
           },
         ],
       },
     },
     {
-      id: 'fetch-content',
-      type: 'http',
-      position: { x: 350, y: 200 },
-      data: {
-        label: 'Fetch Web Content',
-        nodeType: 'http',
-        nodeName: 'Fetch Content',
-        url: '{{input.url}}',
-        method: 'GET',
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        }
-      },
-    },
-    {
-      id: 'analyze-content',
+      id: 'answer-agent',
       type: 'agent',
-      position: { x: 600, y: 200 },
+      position: { x: 400, y: 200 },
       data: {
-        label: 'Analyze Content',
+        label: 'Answer Question',
         nodeType: 'agent',
-        nodeName: 'Content Analyzer',
-        instructions: `Analyze the web page content and provide a summary.
+        nodeName: 'AI Assistant',
+        instructions: `You are a helpful AI assistant. Answer the following question clearly and concisely:
 
-Content:
-{{lastOutput}}
+Question: {{input.question}}
 
-Please provide:
-1. Main topic/theme
-2. Key points (3-5 bullet points)
-3. Brief summary (2-3 sentences)`,
+Provide a well-structured answer with relevant details.`,
         model: 'openai/gpt-4',
         outputFormat: 'Text',
       },
@@ -77,7 +58,7 @@ Please provide:
     {
       id: 'end',
       type: 'end',
-      position: { x: 850, y: 200 },
+      position: { x: 700, y: 200 },
       data: {
         label: 'End',
         nodeType: 'end',
@@ -86,8 +67,7 @@ Please provide:
     },
   ],
   edges: [
-    { id: 'e1', source: 'start', target: 'fetch-content' },
-    { id: 'e2', source: 'fetch-content', target: 'analyze-content' },
-    { id: 'e3', source: 'analyze-content', target: 'end' },
+    { id: 'e1', source: 'start', target: 'answer-agent' },
+    { id: 'e2', source: 'answer-agent', target: 'end' },
   ],
 };
