@@ -23,10 +23,13 @@ export const list = query({
         )
         .order("desc")
         .collect();
+      
+      console.log(`📋 Found ${workflows.length} workflows for user ${identity.subject}`);
       return workflows;
     }
 
     // If not authenticated, return empty array
+    console.log('⚠️ No authentication - returning empty array');
     return [];
   },
 });
