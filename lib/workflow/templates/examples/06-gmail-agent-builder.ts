@@ -71,7 +71,7 @@ export const gmailAgentBuilderTemplate: Workflow = {
         label: 'Gmail AI Agent',
         nodeType: 'agent',
         model: 'gpt-4o-mini',
-        systemPrompt: `You are a helpful Gmail assistant with access to email management tools.
+        systemPrompt: `You are a helpful Gmail assistant with access to email management tools via Arcade.
 
 Your capabilities include:
 - Reading and searching emails
@@ -92,59 +92,17 @@ When drafting emails:
 - Use appropriate greetings and signatures
 - Keep tone professional yet friendly
 - Proofread for grammar and clarity
-- Format content for readability`,
-        tools: [
+- Format content for readability
+
+Use the Gmail tools from Arcade to help users manage their inbox efficiently.`,
+        mcpTools: [
           {
-            type: 'arcade',
-            toolId: 'Google.Gmail.ReadEmail',
-            name: 'read_email',
-            description: 'Read a specific email by ID',
-          },
-          {
-            type: 'arcade',
-            toolId: 'Google.Gmail.SearchEmails',
-            name: 'search_emails',
-            description: 'Search emails using Gmail query syntax (from:, to:, subject:, etc.)',
-          },
-          {
-            type: 'arcade',
-            toolId: 'Google.Gmail.SendEmail',
-            name: 'send_email',
-            description: 'Send an email with subject and body',
-          },
-          {
-            type: 'arcade',
-            toolId: 'Google.Gmail.CreateDraft',
-            name: 'create_draft',
-            description: 'Create an email draft without sending',
-          },
-          {
-            type: 'arcade',
-            toolId: 'Google.Gmail.ListEmails',
-            name: 'list_emails',
-            description: 'List recent emails from inbox',
-          },
-          {
-            type: 'arcade',
-            toolId: 'Google.Gmail.AddLabel',
-            name: 'add_label',
-            description: 'Add a label to an email',
-          },
-          {
-            type: 'arcade',
-            toolId: 'Google.Gmail.ArchiveEmail',
-            name: 'archive_email',
-            description: 'Archive an email (remove from inbox)',
-          },
-          {
-            type: 'arcade',
-            toolId: 'Google.Gmail.DeleteEmail',
-            name: 'delete_email',
-            description: 'Move an email to trash',
+            name: 'Arcade Gmail',
+            url: 'arcade-gmail-tools',
+            authType: 'arcade',
+            label: 'Arcade Gmail Tools',
           },
         ],
-        maxIterations: 15,
-        temperature: 0.7,
       },
     },
 
