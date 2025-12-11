@@ -6,6 +6,20 @@ import { validateApiKey, createUnauthorizedResponse } from '@/lib/api/auth';
 export const dynamic = 'force-dynamic';
 
 /**
+ * Handle CORS preflight requests
+ */
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
+}
+
+/**
  * Streaming workflow execution with real-time updates
  * Uses Server-Sent Events (SSE) to stream node execution progress
  *
