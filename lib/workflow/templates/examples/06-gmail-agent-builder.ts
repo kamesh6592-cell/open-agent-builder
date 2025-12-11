@@ -36,73 +36,53 @@ export const gmailAgentBuilderTemplate: Workflow = {
         nodeName: 'Start',
         inputVariables: [
           {
-            name: 'task',
+            name: 'gmail_task',
             type: 'string',
             required: true,
-            description: 'What would you like to do with your Gmail?',
-            defaultValue: 'Show me my 5 most recent unread emails',
+            description: 'What would you like to do with Gmail? (e.g., list emails, search, send)',
+            defaultValue: 'List my recent emails',
           },
         ],
       },
     },
 
-    // Gmail Authentication via Arcade
+    // Arcade Node - List Gmail Emails
     {
       id: 'arcade-1',
       type: 'arcade',
-      position: { x: 100, y: 220 },
+      position: { x: 100, y: 250 },
       data: {
-        label: 'Authenticate Gmail',
+        label: 'List Gmail Emails',
         nodeType: 'arcade',
-        arcadeTool: 'Google.Gmail.Authorize',
+        arcadeTool: 'Google.Gmail.ListEmails',
         arcadeInput: {
-          scopes: 'gmail.readonly gmail.send gmail.compose gmail.modify',
+          maxResults: '10',
         },
-        arcadeUserId: 'workflow-user',
+        arcadeUserId: 'gmail-user',
       },
     },
 
-    // Agent Node - Gmail Email Manager
+    // Agent Node - Process Results
     {
       id: 'agent-1',
       type: 'agent',
-      position: { x: 100, y: 380 },
+      position: { x: 100, y: 400 },
       data: {
-        label: 'Gmail AI Agent',
+        label: 'Process Gmail Results',
         nodeType: 'agent',
         model: 'gpt-4o-mini',
-        systemPrompt: `You are a helpful Gmail assistant with access to email management tools via Arcade.
+        systemPrompt: `You are analyzing Gmail email data. 
 
-Your capabilities include:
-- Reading and searching emails
-- Drafting and sending professional emails
-- Organizing emails with labels
-- Archiving and deleting emails
-- Summarizing long email threads
-- Generating context-aware replies
+The previous step retrieved emails from Gmail using Arcade. Your job is to:
+1. Parse and summarize the email list
+2. Present the information in a clear, readable format
+3. Highlight important emails or patterns
+4. Answer any questions about the emails
 
-Always:
-1. Confirm before sending emails
-2. Use professional and clear language
-3. Respect user privacy and data
-4. Ask for clarification when needed
-5. Provide summaries of actions taken
-
-When drafting emails:
-- Use appropriate greetings and signatures
-- Keep tone professional yet friendly
-- Proofread for grammar and clarity
-- Format content for readability
-
-Use the Gmail tools from Arcade to help users manage their inbox efficiently.`,
-        mcpTools: [
-          {
-            name: 'Arcade Gmail',
-            url: 'arcade-gmail-tools',
-            authType: 'arcade',
-            label: 'Arcade Gmail Tools',
-          },
-        ],
+Format your response as a clean summary with:
+- Number of emails found
+- Brief overview of key emails
+- Any notable patterns or urgent items`,
       },
     },
 
@@ -110,7 +90,7 @@ Use the Gmail tools from Arcade to help users manage their inbox efficiently.`,
     {
       id: 'end-1',
       type: 'end',
-      position: { x: 100, y: 560 },
+      position: { x: 100, y: 550 },
       data: {
         label: 'Complete',
         nodeType: 'end',
