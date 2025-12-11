@@ -14,9 +14,9 @@ const isPublicRoute = createRouteMatcher([
 
 // Define API routes that require API key authentication (bypass Clerk auth)
 const isApiKeyRoute = createRouteMatcher([
-  '/api/workflows/:workflowId/execute',
-  '/api/workflows/:workflowId/execute-stream',
-  '/api/workflows/:workflowId/resume',
+  '/api/workflows/(.*)/execute',
+  '/api/workflows/(.*)/execute-stream',
+  '/api/workflows/(.*)/resume',
 ])
 
 export default clerkMiddleware(async (auth, request) => {
